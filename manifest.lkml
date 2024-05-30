@@ -8,8 +8,8 @@ project_name: "explore_assistant_ecom"
 # }
 application: explore_assistant {
   label: "Explore Assistant ecom 2.0"
-  url: "https://localhost:8080/bundle.js"
-  # file: "bundle.js"
+  # url: "https://localhost:8080/bundle.js"
+  file: "bundle.js"
   entitlements: {
     core_api_methods: ["lookml_model_explore","create_sql_query","run_sql_query","run_query","create_query"]
     navigation: yes
