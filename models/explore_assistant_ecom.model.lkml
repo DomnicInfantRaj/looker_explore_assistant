@@ -8,6 +8,11 @@ datagroup: explore_assistant_ecom_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: ecommerce_etl {
+  sql_trigger: SELECT max(created_at) FROM ecomm.events ;;
+  max_cache_age: "24 hours"
+}
+
 persist_with: explore_assistant_ecom_default_datagroup
 
 explore: products {
@@ -33,12 +38,12 @@ explore: order_items {
     relationship: many_to_one
   }
 
-  # join: user_order_facts {
-  #   view_label: "Users Facts"
-  #   type: left_outer
-  #   relationship: many_to_one
-  #   sql_on: ${user_order_facts.user_id} = ${order_items.user_id} ;;
-  # }
+  join: user_order_facts {
+    view_label: "Users Facts"
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${user_order_facts.user_id} = ${order_items.user_id} ;;
+  }
 
   join: products {
     type: left_outer
