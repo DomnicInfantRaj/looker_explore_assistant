@@ -1,5 +1,12 @@
 view: incremental_pdt {
     derived_table: {
+
+
+      datagroup_trigger: daily_datagroup
+      increment_key: "created_date"
+      increment_offset: 3
+
+
       explore_source: order_items {
         column: order_id {}
         column: sale_price {}

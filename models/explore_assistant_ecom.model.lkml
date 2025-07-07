@@ -3,6 +3,12 @@ connection: "looker_extension_test_ecom"
 # include all the views
 include: "/views/**/*.view.lkml"
 
+datagroup: daily_datagroup {
+  sql_trigger: SELECT FORMAT_TIMESTAMP('%F',
+    CURRENT_TIMESTAMP(), 'America/Los_Angeles') ;;
+  max_cache_age: "24 hours"
+}
+
 datagroup: explore_assistant_ecom_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
@@ -22,6 +28,8 @@ explore: products {
     relationship: many_to_one
   }
 }
+
+explore: incremental_pdt {}
 
 explore: distribution_centers {}
 
