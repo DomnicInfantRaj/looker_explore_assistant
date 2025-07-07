@@ -36,7 +36,7 @@ explore: +order_items {
   aggregate_table: aggregate_sales {
     query: {
       dimensions: [order_items.created_date, users.state]
-      measures: [order_items.total_sale_price]
+      measures: [order_items.average_sale_price, order_items.total_revenue]
     }
     materialization: {
       datagroup_trigger: daily_datagroup
