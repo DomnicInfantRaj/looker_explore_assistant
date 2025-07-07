@@ -11,6 +11,7 @@ view: incremental_pdt {
     }
     dimension: order_id {
       description: ""
+      primary_key: yes
       type: number
     }
     dimension: sale_price {
@@ -32,4 +33,16 @@ view: incremental_pdt {
     dimension: state {
       description: ""
     }
+
+    measure: average_sale_price {
+      type: average
+      sql: ${sale_price} ;;
+      value_format_name: usd
+    }
+
+  measure: total_revenue {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+  }
   }
