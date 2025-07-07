@@ -47,6 +47,30 @@ explore: +order_items {
 }
 
 
+explore: aggregated_orders {
+  from: order_items
+  label: "Aggregated Sales"
+  join: users {
+    type: left_outer
+    sql_on: ${aggregated_orders.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
+  aggregate_table: aggregate_sales {
+    query: {
+      dimensions: [aggregated_orders.created_date,
+        users.state,users.country]
+      measures: [aggregated_orders.average_sale_price,
+        aggregated_orders.total_revenue]
+    }
+    materialization: {
+      datagroup_trigger: daily_datagroup
+      increment_key: "created_date"
+      increment_offset: 3
+    }
+  }
+}
+
+
 
 
 explore: distribution_centers {}
