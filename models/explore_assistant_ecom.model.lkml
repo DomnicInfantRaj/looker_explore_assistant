@@ -31,6 +31,24 @@ explore: products {
 
 explore: incremental_pdt {}
 
+explore: +order_items {
+  label: "Order Items - Aggregate Sales"
+  aggregate_table: aggregate_sales {
+    query: {
+      dimensions: [order_items.created_date, users.state]
+      measures: [order_items.total_sale_price]
+    }
+    materialization: {
+      datagroup_trigger: daily_datagroup
+      increment_key: "created_date"
+      increment_offset: 3
+    }
+  }
+}
+
+
+
+
 explore: distribution_centers {}
 
 explore: order_items {
