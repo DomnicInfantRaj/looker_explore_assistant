@@ -64,6 +64,19 @@ explore: +order_items{
   }
 }
 
+explore: +order_items{
+  label: "Weekly Sales Summary"
+  aggregate_table: Weekly_sales_summary {
+    materialization: {
+      datagroup_trigger: ecomm_datagroup
+    }
+    query: {
+      dimensions: [order_items.created_week]
+      measures: [order_items.average_sale_price, order_items.total_revenue]
+    }
+  }
+}
+
 
 explore: aggregated_orders {
   from: order_items
