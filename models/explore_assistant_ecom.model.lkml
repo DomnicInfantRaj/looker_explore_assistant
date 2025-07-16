@@ -3,6 +3,11 @@ connection: "looker_extension_test_ecom"
 # include all the views
 include: "/views/**/*.view.lkml"
 
+datagroup: ecomm_datagroup {
+  max_cache_age: "24 hours"
+  sql_trigger: SELECT MAX(updated_at) FROM orders ;;
+}
+
 datagroup: daily_datagroup {
   sql_trigger: SELECT FORMAT_TIMESTAMP('%F',
     CURRENT_TIMESTAMP(), 'America/Los_Angeles') ;;
@@ -42,6 +47,19 @@ explore: +order_items {
       datagroup_trigger: daily_datagroup
       increment_key: "created_date"
       increment_offset: 3
+    }
+  }
+}
+
+explore: +order_items{
+  label: "Monthly Sales Summary"
+  aggregate_table: monthly_sales_summary {
+    materialization: {
+      datagroup_trigger: ecomm_datagroup
+    }
+    query: {
+      dimensions: [order_items.created_month]
+      measures: [order_items.average_sale_price, order_items.total_revenue]
     }
   }
 }
