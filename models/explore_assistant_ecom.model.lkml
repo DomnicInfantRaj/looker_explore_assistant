@@ -37,7 +37,7 @@ explore: products {
 explore: incremental_pdt {}
 
 explore: +order_items {
-  label: "Order Items - Aggregate Sales"
+  label: "Daily Sales Summary"
   aggregate_table: aggregate_sales {
     query: {
       dimensions: [order_items.created_date, users.state]
